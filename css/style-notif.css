@@ -1,0 +1,72 @@
+/* 
+    Document   : style-notif
+    Created on : 10 Sep 12, 18:17:05
+    Author     : sicecep
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/** Notification **/
+.notif{
+/*	padding: 20px 10px 20px 40px;*/
+	background: #FFF no-repeat 5px center;
+	position: relative;
+	/*+border-radius:8px;*/
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	border-radius: 8px 8px 8px 8px;
+}
+.text{
+    margin-left: 20px;
+    padding-left: 20px;
+}
+.content .notif{
+	margin-bottom: 10px;        
+	/*+border-radius:5px;*/
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+.notif .close{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 12px;
+	height: 13px;
+	display: block;
+	background: url(../images/icon/close.png);
+}
+.notif strong{
+	font-weight: bold;
+}
+.notif.success{
+	background-color: #E9FBB4;
+	background-image: url(../images/icon/success.png);
+	border: 1px solid #95B630 !important;
+	color: #2E640A;
+}
+.notif.error{
+	background-color: #FBB4B4;
+	background-image: url(../images/icon/error.png);
+	border: 1px solid #C21C1C !important;
+	color: #C21C1C;
+}
+
+.notif.info{
+	background-color: #B6EBF9;
+	background-image: url(../images/icon/info.png);
+	border: 1px solid #0B809F !important;
+	color: #0B809F;
+}
+.notif.tip, .notif.warning{
+	background-color: #F2EDB7;
+	background-image: url(../images/icon/tip.png);
+	border: 1px solid #8C8919 !important;
+	color: #656310;
+}
+.notif.warning{
+	background-image: url(../images/icon/warning.png);
+}
+
