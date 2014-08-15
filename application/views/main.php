@@ -4,8 +4,8 @@
         <link rel="shortcut icon" type="image/ico" href="<?php echo base_url() . 'imgs/favicon.ico' ?>"/>
         <!-- Ajax -->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dhtmlx.css" />
-        <script src="<?php echo base_url(); ?>assets/dhtmlx.js"></script>        
-            
+        <script src="<?php echo base_url(); ?>assets/dhtmlx.js"></script>                   
+
         <!--jquery-->
         <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.price_format.js"></script>         
@@ -19,24 +19,26 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/modal/shCore.js" language="javascript"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/modal/shBrushJScript.js" language="javascript"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/modal/ModalPopups.js" language="javascript"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/modal/mymodal.js" language="javascript"></script>
             
-        <link href="<?php echo base_url(); ?>css/style_doc.css" rel="stylesheet" type="text/css" />        
+        <link href="<?php echo base_url(); ?>css/main_style.css" rel="stylesheet" type="text/css" />        
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/myfunction.js" language="javascript"></script>
         
         <script type="text/javascript">
-            function UR_Start() 
-            {
-                eSHa = new Date;
-                UR_Indhold = showFilled(eSHa.getHours()) + ":" + showFilled(eSHa.getMinutes()) + ":" + showFilled(eSHa.getSeconds());
-                UR_date = showFilled(eSHa.getDate()) + "-" + showFilled(eSHa.getMonth()+1) + "-" + showFilled(eSHa.getFullYear());
-                document.getElementById("ur").innerHTML = UR_Indhold;
-                document.getElementById("dt").innerHTML = UR_date;
-                setTimeout("UR_Start()",1000);
-            }
-            
-            function showFilled(Value) 
-            {
-                return (Value > 9) ? "" + Value : "0" + Value;
-            }   
+//            function UR_Start() 
+//            {
+//                eSHa = new Date;
+//                UR_Indhold = showFilled(eSHa.getHours()) + ":" + showFilled(eSHa.getMinutes()) + ":" + showFilled(eSHa.getSeconds());
+//                UR_date = showFilled(eSHa.getDate()) + "-" + showFilled(eSHa.getMonth()+1) + "-" + showFilled(eSHa.getFullYear());
+//                document.getElementById("ur").innerHTML = UR_Indhold;
+//                document.getElementById("dt").innerHTML = UR_date;
+//                setTimeout("UR_Start()",1000);
+//            }
+//            
+//            function showFilled(Value) 
+//            {
+//                return (Value > 9) ? "" + Value : "0" + Value;
+//            }   
             
         </script>
         
@@ -55,27 +57,11 @@
         <title>eSHa Framework</title>
     </head>
                             <!--#BAE4E5-->
-                            <body onload="UR_Start()">
-                                <div id="my_logo" style="height: 74px;">
-                                    <div style="background-color:#CFE3FC; width:100%; height:auto;">
-                                        <table border="0" width="100%">
-                                            <tr valign="bottom">
-                                                <td width="228" height="70">
-                                                    <img src="<?php echo base_url(); ?>/images/logo.png" width="228" height="70" />
-                                                </td>
-
-                                                <td>    
-                                                    <div align="left" style="width: 100%;">
-                                                        <b>Sistem Informasi Suka-Suka Sepry Versi 1.0 <br />&nbsp;</b>
-                                                    </div>
-                                                    <div align="left" style="width: 100%;">                                                        
-                                                        <div id="menuutama"></div>                                                        
-                                                    </div>
-                                                </td>                                
-                                            </tr>   
-                                        </table>
-                                    </div>                                    
-                                </div>                               
+                            <body onload="">
+                                <div id="content" style="background-color: #FFF;">   
+                                    <div id="toolbarObj"></div>          
+                                </div>
+                                <div id="tabbar" style="width:100%;height:150px"></div>                              
 
                                 <script>                                    
                                     var base_url = "<?php echo base_url(); ?>";
@@ -85,118 +71,77 @@
                                     var month = currentTime.getMonth() + 1;
                                     var day = currentTime.getDate();
                                     var year = currentTime.getFullYear();
-            
-                                    // TOP NAV
-                                    menuutama = new dhtmlXToolbarObject("menuutama");
-                                    menuutama.setIconsPath("<?php echo base_url(); ?>/images/btn/");                                    
-                                    menuutama.loadXML(base_url+"index.php/main/mainmenu?etc=" + new Date().getTime(),function(){
-                                       UR_Start();
-                                       menuutama.addSpacer("logout");
+                                    
+                                    //var dhxWins;		
+                                    dhxWins = new dhtmlXWindows(); 
+                                    dhxWins.enableAutoViewport(true); 
+                                    dhxWins.setSkin("dhx_skyblue");
+                                    //dhxWins.attachViewportTo("winVP");
+                                    dhxWins.setImagePath(window.parent.base_url+"assets/imgs/");
+                                    dhxWins.attachEvent("onContentLoaded", function(win){
+//                                        statusEnding();	
                                     });
-//                                    menuutama.addText("info3", 14, "<font id='ur' size='3' face='Trebuchet MS, Verdana, Arial, sans-serif' color='#000'></font>")                                                                                                    
-                                    menuutama.attachEvent("onclick", menuutamaClick);
-                                    
-//                                    menuutama.addText("info", 0, "<b>SELAMAT DATANG <?= $username ?></b>")
-//                                    menuutama.addSeparator("sep1", 1);
-//                                    menuutama.addButton("dashboard", 2, "Dashboard", "dashboard.png", "dashboard.png");
-//                                    menuutama.addSeparator("sep1", 3);
-//                                    menuutama.addButton("password", 4, "Change Password", "settings.gif", "settings_dis.gif");                                    
-//                                    menuutama.addButtonSelect("language", 5, "Change Language", '' ,"settings.gif", "settings_dis.gif");
-//                                    menuutama.addSeparator("sep1", 6);
-//                                    menuutama.addButton("logout", 7, "Logout", "cancel.png", "cancel_dis.png");                                                                    
-//                                    menuutama.addText("tanggal", 10, "<font id='' size='3' face='Trebuchet MS, Verdana, Arial, sans-serif' color='#000'>"+(day + "-" + month + "-" + year)+"</font>")
-//                                    menuutama.addSeparator("sep1", 11);
-//                                    menuutama.addText("info", 15, "<font id='ur' size='3' face='Trebuchet MS, Verdana, Arial, sans-serif' color='#000'></font>")
-                                    
-                                    
-
-                                function menuutamaClick(id){
-                                    if(id=="logout"){
-                                        dhtmlx.confirm({
-                                                title:"Logout",
-                                                ok:"Yes", cancel:"No",
-                                                text:"Apakah anda yakin melakukan logout ?",
-                                                callback:function(result){
-                                                    if(result==true){
-                                                       location.href = "<?php echo site_url() . "/main/logout" ?>";                                                       
-                                                    } else {
-                                                        return true;
-                                                    }
-                                                }
-                                            });                                        
-                                    }
-                                    else if(id=="password"){
-                                        alert("change Password");
-                                    }
-                                    else if(id=="dashboard"){
-                                        dhxTab.setTabActive("a1"); 
-                                    }
-                                    else if(id=="language_INA"){
-                                        location.href = "<?php echo site_url() . "/main/change/indonesia" ?>";
-                                    }
-                                    else if(id=="language_ENG"){
-                                        location.href = "<?php echo site_url() . "/main/change/english" ?>";
-                                    }
-                                }
-                                                
             
-                                                var dhxLayoutData = {
-                                                    parent: document.body,
-                                                    pattern: "2U",
-                                                    cells: [{
-                                                            id: "a",
-                                                            text: "<?=lang('home_navigation')?>",
-                                                            width: 230,
-                                                            header: true,
-                                                            fix_size: [false, null]
-                                                        }, {
-                                                            id: "b",
-                                                            text: "",
-                                                            header: false
-                                                        }]
-                                                };
-                                                var dhxLayout = new dhtmlXLayoutObject(dhxLayoutData);
-                                                dhxLayout.attachHeader("my_logo");
-                                                statusBar = dhxLayout.attachStatusBar();
-                                                statusBar.setText("<div id='statusbar'><div style='float:left;font-weight:bold;'><?php echo 'User : '.$this->session->userdata('username').' | Grup : '.$this->session->userdata('language').' | Company : '.$this->session->userdata('company_name').' ('.$this->session->userdata('company_id').') | Periode : '.$this->session->userdata('kode_fiskal').' - '.$this->session->userdata('keterangan'); ?></div><div style='text-align:right;'><b> COPYRIGHT &copy; 2013 SEPRY HARYANDI</b></div></div>");
-		
-		
-                                                dhxAccord = dhxLayout.cells("a").attachAccordion();
-                                                dhxAccord.setIconsPath(base_url+"images/menu/");
-                                                dhxAccord.loadXML(base_url+"index.php/main/load_accord", function() {
-                                                    dhxAccord.forEachItem(function(item){
-                                                        var id = item.getId();
-                                                        var dhxtr = "dhxTree_"+id;
-                                                        load_dhxTree(id,dhxtr);                                                                
-                                                    });                                                    
-                                                });
-                                                
-                                                function load_dhxTree(id,dhxtr){
-                                                    var objTree = dhxtr;
-                                                    dhxtr = dhxAccord.cells(id).attachTree();
-                                                    dhxtr.setSkin("dhx_skyblue");
-                                                    dhxtr.setImagePath(base_url+"/assets/imgs/csh_scbrblue/");
-                                                    dhxtr.loadXML(base_url+"/index.php/main/menu/"+id);
-                                                    dhxtr.attachEvent("onClick",function(id){                                                                                                                
-                                                        treeClick(id,dhxtr);                                                         
-                                                    });
-                                                }	
-		
-                                                function treeClick(id,objTree) {                                                                                                         
-                                                    var i = id.split("|");                                                          
-                                                    if(i[2]!="0"){
-                                                        progressOn();
-//                                                        cek_session("<?php echo base_url();?>index.php/home/ceksession");                                                                                                            
-                                                        openTab(i[0],objTree.getSelectedItemText(),"/index.php/"+i[1]);    
-                                                    }   
-                                                    
-                                                }
-		 
-                                                function outputResponse(loader) {
-                                                    progressOff();
-                                                    document.getElementById('objId').innerHTML = loader.xmlDoc.responseText;
-                                                }
-		
+                                    mainLayout = new dhtmlXLayoutObject(document.body, "1C");
+                                    mainLayout.setSkin("dhx_skyblue");
+                                    mainLayout.cells("a").hideHeader();
+                                    
+                                    var mainMenu = mainLayout.cells("a").attachMenu(); 
+                                    mainMenu.setSkin("dhx_skyblue");
+                                    mainMenu.setTopText("ICS V.1.0");
+                                    mainMenu.setIconsPath("<?php echo base_url(); ?>/images/menu/");  
+                                    mainMenu.loadXML("<?php echo base_url(); ?>/main/menu");
+                                    mainMenu.attachEvent("onClick", menuClick);
+                                    mainMenu.attachEvent("onCheckboxClick", menuCheckboxClick);                                            
+
+                                    contentLayout = new dhtmlXLayoutObject(mainLayout.cells("a"), "2E");    
+                                    contentLayout.setSkin("dhx_skyblue");
+                                    contentLayout.cells("a").hideHeader();
+                                    contentLayout.cells("a").setHeight(42);        
+                                    contentLayout.cells("b").hideHeader();  
+                                    contentLayout.cells("a").setText(" ");
+                                    contentLayout.setEffect("collapse", true);
+                                    contentLayout.attachEvent("onExpand",function(id){
+                                        contentLayout.cells("a").hideHeader();
+                                        mainMenu.setCheckboxState("toolbar",true);
+                                    });
+                                    contentLayout.setCollapsedText("a", "Toolbar Menu");
+                                    contentLayout.cells("a").fixSize(true, true);    
+                                    contentLayout.cells("a").attachObject("content");
+                                    
+                                    var mainToolbar = new dhtmlXToolbarObject("toolbarObj", "dhx_skyblue");
+                                    loadToolbar(32);
+                                    mainToolbar.clearAll();
+                                    mainToolbar.loadXML("<?php echo base_url(); ?>/main/toolbar/",function() {
+
+                                    });
+                                    mainToolbar.attachEvent("onclick", doToolbarClick);
+                                    
+                                    function doToolbarClick(id){ 
+                                        var o = id.split("|");
+                                        var text = mainToolbar.getItemText(id);        
+                                        bukaTab(o[0],text,o[1]);
+                                    }
+
+
+                                    function loadToolbar(a) {
+                                        mainToolbar.clearAll();
+                                        mainToolbar.setIconSize(a);        
+                                        mainToolbar.setIconsPath("<?php echo base_url(); ?>/images/toolbar/" + a + "/");                 
+                                    }
+                                    
+                                    var mainTab = contentLayout.cells("b").attachTabbar();
+                                    mainTab.setImagePath("<?php echo base_url(); ?>/assets/imgs/");
+                                    mainTab.setSkin("dhx_skyblue");    
+                                    mainTab.setHrefMode("ajax-html");
+                                    mainTab.addTab("a1", "DASHBOARD", 120);          
+                                    mainTab.setContentHref("a1","<?php echo base_url(); ?>/home/dashboard");     
+                                    mainTab.setTabActive("a1");    
+                                    mainTab.enableTabCloseButton(true);
+                                    
+                                    statusBar = mainLayout.attachStatusBar();
+                                    statusBar.setText("<div id='statusbar'><div style='float:left;font-weight:bold;'><?php echo 'User :  | Grup : '; ?></div>|<div id='ur'></div><div style='text-align:right;'><b> COPYRIGHT &copy; 2014 PT. MARUI INTEX</b></div></div>");
+                                    
                                                 function progressOn() {
                                                     dhxLayout.cells("b").progressOn();
                                                 }
@@ -205,44 +150,114 @@
                                                     dhxLayout.cells("b").progressOff();
                                                 }
                 
-                                                var dhxTab = dhxLayout.cells("b").attachTabbar();
-                                                dhxTab.setImagePath("<?php echo base_url(); ?>/assets/imgs/");
-                                                dhxTab.setSkin("dhx_skyblue");    
-                                                dhxTab.setHrefMode("ajax-html");
-                                                dhxTab.addTab("a1", "DASHBOARD", 120);          
-      
-                                                dhxTab.setTabActive("a1");    
-                                                dhxTab.enableTabCloseButton(true);
-<?php
-$grup = $this->session->userdata("idgroup");
-if ($grup == "1") {
-    ?>                
-                                                dhxTab.setContentHref("a1","<?php echo base_url(); ?>/index.php/home/dashboard");   
-<?php } else { ?>                    
-//                                            tab.setContentHref("a1","http://www.inprasegroup.co.id/index.php");   
-<?php } ?>
+//                                                var dhxTab = dhxLayout.cells("b").attachTabbar();
+//                                                dhxTab.setImagePath("<?php // echo base_url(); ?>/assets/imgs/");
+//                                                dhxTab.setSkin("dhx_skyblue");    
+//                                                dhxTab.setHrefMode("ajax-html");
+//                                                dhxTab.addTab("a1", "DASHBOARD", 120);          
+//      
+//                                                dhxTab.setTabActive("a1");    
+//                                                dhxTab.enableTabCloseButton(true);
+//<?php
+//$grup = $this->session->userdata("idgroup");
+//if ($grup == "1") {
+    ?>//                
+//                                                dhxTab.setContentHref("a1","<?php // echo base_url(); ?>/index.php/home/dashboard");   
+//<?php // } else { ?>                    
+////                                            tab.setContentHref("a1","http://www.inprasegroup.co.id/index.php");   
+//<?php // } ?>
     
-                                        function openTab(id,text,url){         
-                                            var urlnya = url;
-//                                            var randomnumber=Math.floor((Math.random()*1000)+1);
-                                            var judul = text;
-                                            var textLength = judul.length;
-                                            if(parseInt(textLength) >= 12) {  
-                                                var panjang = parseInt(textLength) * 10;
-                                            } else {
-                                                var panjang = 100;
-                                            }
-                                            
-                                            dhxTab.setTabActive(id);
-                                            
-                                            if(dhxTab.getActiveTab()!=id){
-                                                dhxTab.addTab(id,judul,panjang+"px");
-                                                dhxTab.setTabActive(id);
-                                            }  
-                                                                                        
-                                            dhxTab.setContentHref(id,"<?php echo base_url(); ?>/"+urlnya);  
-                                            progressOff();
-                                        }
+//                                        function openTab(id,text,url){         
+//                                            var urlnya = url;
+////                                            var randomnumber=Math.floor((Math.random()*1000)+1);
+//                                            var judul = text;
+//                                            var textLength = judul.length;
+//                                            if(parseInt(textLength) >= 12) {  
+//                                                var panjang = parseInt(textLength) * 10;
+//                                            } else {
+//                                                var panjang = 100;
+//                                            }
+//                                            
+//                                            dhxTab.setTabActive(id);
+//                                            
+//                                            if(dhxTab.getActiveTab()!=id){
+//                                                dhxTab.addTab(id,judul,panjang+"px");
+//                                                dhxTab.setTabActive(id);
+//                                            }  
+//                                                                                        
+//                                            dhxTab.setContentHref(id,"<?php echo base_url(); ?>/"+urlnya);  
+//                                            progressOff();
+//                                        }
+                                        
+    function bukaTab(id,text,url){         
+        var urlnya = url;
+        var randomnumber=Math.floor((Math.random()*1000)+1);
+        var judul = text;
+        var textLength = judul.length;        
+        if(parseInt(textLength) >= 12) {  
+            var panjang = parseInt(textLength) * 10;
+        } else {
+            var panjang = 100;
+        }           
+
+        mainTab.setTabActive(id);        
+        if(mainTab.getActiveTab()!=id){
+            mainTab.addTab(id,judul,panjang+"px");
+            mainTab.setTabActive(id);
+        }  
+        
+        mainTab.setContentHref(id,"<?php echo base_url(); ?>/"+urlnya+"/"+id);  
+        progressOff();
+    }
+                                        
+    function menuClick(id){        
+        var i = id.split("|");        
+        if(i[0]=="5A"){
+            return true;
+        } else {            
+            var randomnumber=Math.floor((Math.random()*1000)+1);
+            var text = mainMenu.getItemText(id);
+            var textLength = text.length;
+            if(parseInt(textLength) >= 12) {  
+                var panjang = parseInt(textLength) * 9;
+            } else {
+                var panjang = 100;
+            }
+                        
+            if(mainTab.getActiveTab()!=id){
+                mainTab.addTab(id,text,panjang+"px");
+                mainTab.setTabActive(id);
+            }  
+            
+            mainTab.enableTabCloseButton(true);
+            if(i[1]){
+                mainTab.setContentHref(id,"<?php echo site_url(); ?>/"+i[1]);
+            }
+        }
+    }
+    
+    function menuCheckboxClick(id, state){
+        var i = id.split("|");
+        if(i[0]=='5A' && state==true){
+            contentLayout.cells('a').showHeader();	
+            contentLayout.cells("a").collapse();
+        } else {            
+            contentLayout.cells("a").expand();
+            //contentLayout.cells("a").setHeight(60);
+        }
+        return true;
+    }
+    
+    function goLogout() {
+        window.location = "<?php echo base_url(); ?>/main/logoutexit"; 
+    }
+    
+    function removeTabLogout(){
+        var a = mainTab.getActiveTab();
+        var r = a.split("|");
+        mainTab.removeTab(r[0]); 
+        mainTab.setTabActive("a1");
+    }
     
                                 </script>
                             </body>

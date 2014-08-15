@@ -146,10 +146,20 @@ class main extends CI_Controller {
 		$this->load->view('login');
         }
         
-        function logout()
+        function logoutexit()
         {
             $this->session->sess_destroy();
             redirect(site_url());
+        }
+        
+        function logout(){
+                echo '<script language="javascript">var c = confirm("Are you sure to logout ?")
+                        if(c==true){
+                           window.parent.goLogout();                            
+                        } else {
+                           window.parent.removeTabLogout();
+                        }
+                </script>';
         }
         
         
@@ -215,16 +225,94 @@ class main extends CI_Controller {
                 echo '</accordion>';
 	}
         
-	public function menu($id) {
-		if (stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml")) {
-			header("Content-type: application/xhtml+xml"); } else {
-			header("Content-type: text/xml");
-		}
-		echo("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n");
+        function menu()
+        {
+            if (stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml")) {
+                header("Content-type: application/xhtml+xml");
+            } else {
+                header("Content-type: text/xml");
+            }
+            echo("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n");
+            echo "<menu>";
+                $this->menudb();
+            echo "</menu>";
+        }
+        
+        function menudb(){
+            $grup_id = $this->session->userdata('esha_group_id');
+            $data = $this->main->getMenu(0); 
+            $i=0;
+            foreach ($data as $d) {
+                echo "<item id=\"".$d->kode_menu."\" text=\"".ucwords($d->menu_name)."\" >"; 
+                    $this->menuChild($d->menu_id);
+                echo "</item>";
+                $i++;
+            }            
+        }
+        
+        function menuChild($parent){            
+            $data = $this->main->getMenu($parent);
+            $i=0;
+            foreach ($data as $d) {
+                $ck = $d->menu_type;                
+                if($ck==10){                    
+                     echo "<item id=\"".$d->kode_menu."\" text=\"".ucwords($d->menu_name)."\" type=\"checkbox\" checked=\"true\" />"; 
+                } else if($ck==11){ //separator
+                     echo "<item id=\"".$d->kode_menu."\" type=\"".ucwords($d->menu_name)."\" />"; 
+                }  
+                else {                    
+                     echo "<item id=\"".$d->kode_menu."\" text=\"".ucwords($d->menu_name)."\" img=\"".ucwords($d->menu_image)."\" type=\"".$d->menu_type."\" >"; 
+                     $this->menuChild($d->menu_id);
+                     echo "</item>";
+                }
+                
+                $i++;
+            }
+        }
+        
+    function toolbar() {
+        if (stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml")) {
+            header("Content-type: application/xhtml+xml");
+        } else {
+            header("Content-type: text/xml");
+        }
+        echo("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n");
+        echo "<toolbar>";
+        $this->toolbardb();
+        echo "</toolbar>";
+    }
+
+    function toolbardb() {
+        $grup_id = $this->session->userdata('esha_group_id');
+        $data = $this->main->getToolbar();
+        $i = 0;
+        foreach ($data as $d) {
+            if ($d->toolbar_image == "") {
+                $image = "open.gif";
+            } else {
+                $image = $d->toolbar_image;
+            }
+            if ($d->toolbar_image == "") {
+                $imagedis = "open.gif";
+            } else {
+                $imagedis = $d->toolbar_image;
+            }
+            echo "<item id=\"" . $d->kode_menu . "\" text=\"" . $d->menu_name . "\" type=\"button\" img=\"" . $image . "\" imgdis=\"" . $imagedis . "\"  />";
+            echo "<item id=\"sep01\" type=\"separator\"/>";
+            $i++;
+        }
+    }
+        
+//	public function menu($id) {
+//		if (stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml")) {
+//			header("Content-type: application/xhtml+xml"); } else {
+//			header("Content-type: text/xml");
+//		}
+		/*echo("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n");
 		echo "<tree id='0'>";
 			$this->treemenu(0,$id);
-		echo "</tree>";
-	}
+		echo "</tree>";*/
+//	}
 	
        
 //                public function menuUtama($parent,$modul) {
@@ -273,24 +361,24 @@ class main extends CI_Controller {
             redirect(base_url('index.php/main'));
         }
         
-    function treemenu($parent="",$nav="") {        
-        $tree_modul = $this->db->query("SELECT a.*,c.menu_name,b.menu_url,b.menu_parent FROM sys_roles a
-                                        LEFT JOIN sys_menu b ON a.menu_id=b.menu_id
-                                        LEFT JOIN sys_menu_description c ON b.menu_id=c.menu_id
-                                        WHERE a.group_id='".$this->session->userdata('esha_group_id')."' AND b.nav_id='".$nav."' AND b.menu_parent='".$parent."' AND c.lang_id='".$this->session->userdata('esha_language_id')."'");
-
-        if ($tree_modul->num_rows() > 0) {
-            foreach ($tree_modul->result() as $rs) {
-
-                echo "<item id=\"menu_" . $rs->menu_id . "|" . $rs->menu_url . "|" . $rs->menu_parent . "\" text=\"" . ucwords($rs->menu_name) . "\">";
-
-                $this->treemenu($rs->menu_id,$nav);
-
-                echo "</item>";
-            }
-        }
-        
-    }
+//    function treemenu($parent="",$nav="") {        
+//        $tree_modul = $this->db->query("SELECT a.*,c.menu_name,b.menu_url,b.menu_parent FROM sys_roles a
+//                                        LEFT JOIN sys_menu b ON a.menu_id=b.menu_id
+//                                        LEFT JOIN sys_menu_description c ON b.menu_id=c.menu_id
+//                                        WHERE a.group_id='".$this->session->userdata('esha_group_id')."' AND b.nav_id='".$nav."' AND b.menu_parent='".$parent."' AND c.lang_id='".$this->session->userdata('esha_language_id')."'");
+//
+//        if ($tree_modul->num_rows() > 0) {
+//            foreach ($tree_modul->result() as $rs) {
+//
+//                echo "<item id=\"menu_" . $rs->menu_id . "|" . $rs->menu_url . "|" . $rs->menu_parent . "\" text=\"" . ucwords($rs->menu_name) . "\">";
+//
+//                $this->treemenu($rs->menu_id,$nav);
+//
+//                echo "</item>";
+//            }
+//        }
+//        
+//    }
     
     public function mainmenu() {
                 $username = $this->session->userdata('esha_username');

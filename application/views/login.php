@@ -1,7 +1,12 @@
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style-login.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style-notif.css" />
-    
+        <script>
+            function modeStart(){
+                document.getElementById("username").focus();
+            }
+        </script>
+        <body onload="modeStart()">   
         <div class="main">		
             <div class="box">
                 <?php if ( $this->session->flashdata( 'message' ) ) : ?>
@@ -42,4 +47,4 @@
 
             </div>
         </div>
-  
+        </body>

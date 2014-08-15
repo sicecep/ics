@@ -1,12 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class menu extends MY_Controller {
+class company extends MY_Controller {
 
-//    public function __construct(){
-//        require_once (APPPATH . "/libraries/connector/grid_connector.php"); 
-//    }
-    public function index() {
-        $this->load->view('menu_index');
+    public function index() {        
+        $this->load->view('company_index');
     }
     
     function loadMainData() {
@@ -21,5 +18,3 @@ class menu extends MY_Controller {
 
 }
  
-/* End of file hmvc.php */
-/* Location: ./application/modules/menu/controllers/menu.php */

@@ -6,3 +6,12 @@ body {
         background-color: #D1EDF6;	         
 	font-size: 11px;
 }
+
+fieldset {
+    border:1px solid;
+}
+
+.label-form {
+    text-align: right;
+    font-weight: bold;
+}
