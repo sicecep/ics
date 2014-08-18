@@ -205,6 +205,7 @@ class main extends CI_Controller {
 //            }
 //        }
 	
+        // tidak terpakai       
         public function load_accord() {
                 $lang = $this->session->userdata('esha_language_id');
 		if (stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml")) {

@@ -39,7 +39,7 @@ toolbar_s4.setIconsPath(base_url+"/images/btn/");
 toolbar_s4.addButton("new", 0, "New", "new.gif", "new_dis.gif");
 toolbar_s4.addButton("edit", 2, "Edit", "edit.png", "edit_dis.png");
 toolbar_s4.addButton("del", 4, "Delete", "delete.png", "dis_delete.png");
-toolbar_s4.addButton("search", 5, "Cari", "filter.png", "filter.png");
+//toolbar_s4.addButton("search", 5, "Cari", "filter.png", "filter.png");
 toolbar_s4.addButton("refresh", 6, "Refresh", "refresh.png", "refresh_dis.png");
 toolbar_s4.addText("info", 10, "<b>PENGATURAN USER</b>")
 toolbar_s4.attachEvent("onclick", tbClick_s4);

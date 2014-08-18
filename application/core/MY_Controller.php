@@ -5,6 +5,7 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         require_once("./assets/connector/grid_connector.php");
        require_once("./assets/connector/db_phpci.php");
+       require_once("./assets/connector/treegrid_connector.php");
 //        require_once (APPPATH . "/libraries/connector/combo_connector.php");        
 //        require_once (APPPATH . "/libraries/connector/grid_connector.php");                             
 //        require_once (APPPATH . "/libraries/connector/treegrid_connector.php");
